@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block main %}
+    <div>
+        <h3 id="countdown">Album</h1>
+    </div>
+    <br>
+    <div class="container">
+        <div class="row row-cols-md-3">
+            {% for card, amount in CARDS.items() %}
+            <div class="col">
+                {% if amount > 0 %}
+                <div class="card h-100">
+                    <img class="card-img-top img-fluid" src="{{ '/static/' + card + '.gif' }}" alt="">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">A quirky description of the unlocked tomato.</p>
+                    </div>
+                </div>
+                
+                {% else %}
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">Unlock this card to know more about it.</p>
+                    </div>
+                </div>
+                {% endif %} 
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

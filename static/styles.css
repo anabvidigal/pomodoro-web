@@ -1,0 +1,33 @@
+card {
+    max-width: 12rem;
+    align-items: center;
+}
+
+h1 {
+    font-weight: bold;
+    font-size: 100px;
+}
+
+img {
+    max-width: 18rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.timer {
+    padding-top: 4rem;
+}
+
+.reward {
+    margin-top: 4rem;
+    width: 18rem;
+}
