@@ -1,4 +1,4 @@
-const startingMinutes = 25;
+const startingMinutes = 0.1;
 let time = startingMinutes * 60;
 let countdownInterval;
 let pause = true;

@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template, request, session
+from flask import Flask, redirect, render_template, request, session, jsonify
 from flask_session import Session
 # import sqlite3
 
@@ -15,9 +15,9 @@ app.config["TEMPLATES_AUTO_RELOAD"] = True
 # Session(app)
 
 CARDS = {
-    "01": 0,
+    "01": 1,
     "02": 0,
-    "03": 0
+    "03": 2
 }
 
 @app.route("/", methods=["GET", "POST"])
@@ -31,3 +31,13 @@ def album():
 @app.route("/pomodoro")
 def pomodoro():
     return redirect("/")
+
+@app.route("/get_random_card")
+def get_random_card():
+    card = {
+        'id': 1,
+        'name': 'Cherry Tomatoes',
+        'description': "Are you sure these are not fruit?",
+        'image_url': '/static/images/01.gif'
+    }
+    return jsonify(card)
