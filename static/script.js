@@ -1,4 +1,4 @@
-const startingMinutes = 1;
+const startingMinutes = 25;
 let time = startingMinutes * 60;
 let countdownInterval;
 let pause = true;
@@ -60,10 +60,34 @@ function updateCountdown() {
                     <div class="card-body">
                     <h5 class="card-title">Claim your sticker!</h5>
                     <p class="card-text">You've just earned a sticker to your PomoAlbum.</p>
-                    <a href="#" class="btn btn-primary">Open pack</a>
+                    <a href="#" id="claim" class="btn btn-primary">Open pack</a>
                 </div>
             `;
             mainSection.append(rewardEl);
+
+            const claimButton = document.getElementById('claim');
+
+            claimButton.addEventListener('click', () => {
+                fetch('/get_random_card', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                .then(function (response) {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(function (data) {
+                    claimButton.innerHTML = data.name;
+                })
+                .catch(function (error) {
+                    console.error('There was a problem with the fetch operaion:', error);
+                });
+            });
+
         }
     }
 }
