@@ -60,7 +60,7 @@ function updateCountdown() {
                     <div class="card-body">
                     <h5 class="card-title">Claim your sticker!</h5>
                     <p class="card-text">You've just earned a sticker to your PomoAlbum.</p>
-                    <a href="#" id="claim" class="btn btn-primary">Open pack</a>
+                    <button type="button" id="claim" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm">Open pack</button>
                 </div>
             `;
             mainSection.append(rewardEl);
@@ -81,7 +81,15 @@ function updateCountdown() {
                     return response.json();
                 })
                 .then(function (data) {
-                    claimButton.innerHTML = data.name;
+                    // Create a new modal element
+                    rewardEl.innerHTML = `
+                        <div class="card mx-auto w-50 reward">
+                            <div class="card-body">
+                            <img class="card-img-top" src="${data.image_url}" alt="">
+                            <h5 class="card-title">${data.name}</h5>
+                            <button type="button" id="claim" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm">See in the album</button>
+                        </div>
+                    `;
                 })
                 .catch(function (error) {
                     console.error('There was a problem with the fetch operaion:', error);
