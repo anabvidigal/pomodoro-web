@@ -34,11 +34,10 @@ def index():
 def album():
     if request.method == "POST":
         print("Post route is working correctly.")
-        hasUnopenedPack = True
         # Tell db that the user has a new unopened sticker pack
         # Execute function to get a random card
         # Add StickerID to the User Stickers table
-        return render_template("album.html", CARDS=CARDS, pack=hasUnopenedPack)
+        return render_template("pack.html", CARDS=CARDS)
     else:
         return render_template("album.html", CARDS=CARDS)
 
