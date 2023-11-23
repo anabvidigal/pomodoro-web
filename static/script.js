@@ -56,12 +56,14 @@ function updateCountdown() {
         if (reward == true) {
             var rewardEl = document.createElement("div");
             rewardEl.innerHTML = `
+            <form action="/album" method="post">
                 <div class="card mx-auto w-50 reward">
                     <div class="card-body">
                     <h5 class="card-title">Claim your sticker!</h5>
                     <p class="card-text">You've just earned a sticker to your PomoAlbum.</p>
-                    <button type="button" id="claim" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm">Open pack</button>
+                    <button type="submit" id="claim" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm">Open pack</button>
                 </div>
+            </form>
             `;
             mainSection.append(rewardEl);
 
