@@ -33,3 +33,7 @@ window.onload = function() {
 
     packModal.show();
 }
+
+document.getElementById('closeAndRedirect').addEventListener('click', () => {
+    window.location.href = '/album';
+});

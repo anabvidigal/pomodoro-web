@@ -52,31 +52,9 @@ def pomodoro():
 def get_random_card():
 
     list = db.execute("SELECT StickerId FROM stickers")
-    print(list)
 
     values = [row['StickerID'] for row in list]
     random_value = random.choice(values)
-    print(random_value)
 
     new_card = db.execute("SELECT * FROM stickers WHERE StickerId = :random_value", random_value=random_value)
-
-    print(new_card)
-
-    # card = {
-    #     'id': 1,
-    #     'name': 'Cherry Tomato',
-    #     'description': "Are you sure these are not fruit?",
-    #     'image_url': '/static/01.gif'
-    # }
-
     return jsonify(new_card)
-
-# @app.route("/get_random_card")
-# def get_random_card():
-#     card = {
-#         'id': 1,
-#         'name': 'Cherry Tomato',
-#         'description': "Are you sure these are not fruit?",
-#         'image_url': '/static/01.gif'
-#     }
-#     return jsonify(card)
