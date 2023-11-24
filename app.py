@@ -1,6 +1,8 @@
 from flask import Flask, redirect, render_template, request, session, jsonify
 from flask_session import Session
 from cs50 import SQL
+import sqlite3
+import random
 
 app = Flask(__name__)
 
@@ -34,6 +36,7 @@ def index():
 def album():
     if request.method == "POST":
         print("Post route is working correctly.")
+
         # Tell db that the user has a new unopened sticker pack
         # Execute function to get a random card
         # Add StickerID to the User Stickers table
@@ -47,10 +50,33 @@ def pomodoro():
 
 @app.route("/get_random_card")
 def get_random_card():
-    card = {
-        'id': 1,
-        'name': 'Cherry Tomatoes',
-        'description': "Are you sure these are not fruit?",
-        'image_url': '/static/01.gif'
-    }
-    return jsonify(card)
+
+    list = db.execute("SELECT StickerId FROM stickers")
+    print(list)
+
+    values = [row['StickerID'] for row in list]
+    random_value = random.choice(values)
+    print(random_value)
+
+    new_card = db.execute("SELECT * FROM stickers WHERE StickerId = :random_value", random_value=random_value)
+
+    print(new_card)
+
+    # card = {
+    #     'id': 1,
+    #     'name': 'Cherry Tomato',
+    #     'description': "Are you sure these are not fruit?",
+    #     'image_url': '/static/01.gif'
+    # }
+
+    return jsonify(new_card)
+
+# @app.route("/get_random_card")
+# def get_random_card():
+#     card = {
+#         'id': 1,
+#         'name': 'Cherry Tomato',
+#         'description': "Are you sure these are not fruit?",
+#         'image_url': '/static/01.gif'
+#     }
+#     return jsonify(card)
