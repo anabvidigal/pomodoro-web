@@ -9,6 +9,7 @@ app = Flask(__name__)
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 
+# Connect to database
 db = SQL("sqlite:///cards.db")
 
 # Prevent caching
@@ -20,16 +21,11 @@ def after_request(response):
     response.headers["Pragma"] = "no-cache"
     return response
 
-CARDS = {
-    "01": 0,
-    "02": 0,
-    "03": 0
-}
-
 hasUnopenedPack = False
 
 @app.route("/", methods=["GET", "POST"])
 def index():
+    CARDS = get_amounts()
     return render_template("index.html", CARDS=CARDS)
 
 @app.route("/album", methods=["GET", "POST"])
@@ -37,11 +33,17 @@ def album():
     if request.method == "POST":
         print("Post route is working correctly.")
 
-        # Tell db that the user has a new unopened sticker pack
+        # grantPack = db.execute("")
+
         # Execute function to get a random card
+
         # Add StickerID to the User Stickers table
+        CARDS = get_amounts()
         return render_template("pack.html", CARDS=CARDS)
     else:
+        
+        CARDS = get_amounts()
+        
         return render_template("album.html", CARDS=CARDS)
 
 @app.route("/pomodoro")
@@ -58,3 +60,15 @@ def get_random_card():
 
     new_card = db.execute("SELECT * FROM stickers WHERE StickerId = :random_value", random_value=random_value)
     return jsonify(new_card)
+
+def get_amounts():
+    """Get the amount of each card from the database"""
+    amounts = db.execute("SELECT StickerId, Amount FROM USER_STICKERS WHERE UserId = :user_id", user_id="1")
+    CARDS = {str(item['StickerID']): item['Amount'] for item in amounts}
+    return CARDS
+
+# CARDS = {
+#     "01": 0,
+#     "02": 0,
+#     "03": 0
+# }

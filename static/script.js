@@ -54,7 +54,14 @@ function updateCountdown() {
         }
 
         if (reward == true) {
-            var rewardEl = document.createElement("div");
+            showCard();
+            givePack();
+        }
+    }
+}
+
+function showCard() {
+    var rewardEl = document.createElement("div");
             rewardEl.innerHTML = `
             <form action="/album" method="post">
                 <div class="card mx-auto w-50 reward">
@@ -97,7 +104,8 @@ function updateCountdown() {
                     console.error('There was a problem with the fetch operaion:', error);
                 });
             });
+}
 
-        }
-    }
+function givePack() {
+    // Send data to the server increasing the amount of unopened packs by 1
 }
