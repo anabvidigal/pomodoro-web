@@ -108,4 +108,19 @@ function showCard() {
 
 function givePack() {
     // Send data to the server increasing the amount of unopened packs by 1
+    fetch('/give_pack', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(function (response) {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        console.log("Granted pack.")
+    })
+    .catch(function (error) {
+        console.error('There was a problem with the fetch operaion:', error);
+    });
 }

@@ -1,7 +1,7 @@
 from flask import Flask, redirect, render_template, request, session, jsonify
 from flask_session import Session
 from cs50 import SQL
-import sqlite3
+import traceback
 import random
 
 app = Flask(__name__)
@@ -66,6 +66,17 @@ def get_amounts():
     amounts = db.execute("SELECT StickerId, Amount FROM USER_STICKERS WHERE UserId = :user_id", user_id="1")
     CARDS = {str(item['StickerID']): item['Amount'] for item in amounts}
     return CARDS
+
+@app.route("/give_pack", methods=["POST"])
+def give_pack():
+    try:
+        db.execute("UPDATE USERS SET UnopenedPacks = UnopenedPacks + 1 WHERE ID = :user_id", user_id="1")
+        return jsonify({"message": "Packs updated successfully."})
+    except Exception as e:
+        traceback.print_exc()
+        return jsonify({"error": str(e)}), 500
+
+    
 
 # CARDS = {
 #     "01": 0,

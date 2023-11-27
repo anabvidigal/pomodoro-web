@@ -41,3 +41,6 @@ CREATE TABLE USERS (
     HashPassword TEXT,
     UnopenedPacks INTEGER
 );
+
+INSERT INTO USERS (ID, UnopenedPacks)
+VALUES (1, 0);
