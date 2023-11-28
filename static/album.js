@@ -8,7 +8,7 @@ openPackButton.addEventListener('click', () => {
 });
 
 document.getElementById('closeAndRedirect').addEventListener('click', () => {
-    packModal.hide();
+    window.location.href = '/album';
 });
 
 function showRandomCard() {
