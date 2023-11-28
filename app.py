@@ -76,10 +76,3 @@ def give_pack():
         traceback.print_exc()
         return jsonify({"error": str(e)}), 500
 
-    
-
-# CARDS = {
-#     "01": 0,
-#     "02": 0,
-#     "03": 0
-# }

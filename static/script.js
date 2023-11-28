@@ -9,6 +9,7 @@ const pauseButton = document.getElementById('pause');
 const countdownEl = document.getElementById('countdown');
 const mainSection = document.getElementById('main');
 
+// Start and Reset button
 startButton.addEventListener('click', () => {
     if (startButton.innerHTML == "Start") {
         pause = false;
@@ -25,6 +26,7 @@ startButton.addEventListener('click', () => {
     }
 });
 
+// Pause and Resumo button
 pauseButton.addEventListener('click', () => {
     if (pauseButton.innerHTML == "Pause") {
         pause = true;
@@ -37,6 +39,7 @@ pauseButton.addEventListener('click', () => {
     
 });
 
+// Updates timer
 function updateCountdown() {
     if (!pause) {
         const minutes = Math.floor(time / 60);
@@ -60,52 +63,23 @@ function updateCountdown() {
     }
 }
 
+// Shows card
 function showCard() {
     var rewardEl = document.createElement("div");
-            rewardEl.innerHTML = `
-            <form action="/album" method="post">
-                <div class="card mx-auto w-50 reward">
-                    <div class="card-body">
-                    <h5 class="card-title">Claim your sticker!</h5>
-                    <p class="card-text">You've just earned a sticker to your PomoAlbum.</p>
-                    <button type="submit" id="claim" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm">Open pack</button>
-                </div>
-            </form>
-            `;
-            mainSection.append(rewardEl);
-
-            const claimButton = document.getElementById('claim');
-
-            claimButton.addEventListener('click', () => {
-                fetch('/get_random_card', {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                })
-                .then(function (response) {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(function (data) {
-                    // Create a new modal element
-                    rewardEl.innerHTML = `
-                        <div class="card mx-auto w-50 reward">
-                            <div class="card-body">
-                            <img class="card-img-top" src="${data.image_url}" alt="">
-                            <h5 class="card-title">${data.name}</h5>
-                            <button type="button" id="claim" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm">See in the album</button>
-                        </div>
-                    `;
-                })
-                .catch(function (error) {
-                    console.error('There was a problem with the fetch operaion:', error);
-                });
-            });
+        rewardEl.innerHTML = `
+        <form action="/album" method="post">
+            <div class="card mx-auto w-50 reward">
+                <div class="card-body">
+                <h5 class="card-title">Claim your sticker!</h5>
+                <p class="card-text">You've just earned a sticker to your PomoAlbum.</p>
+                <button type="submit" id="claim" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm">Open pack</button>
+            </div>
+        </form>
+        `;
+        mainSection.append(rewardEl);
 }
 
+// Gives pack
 function givePack() {
     // Send data to the server increasing the amount of unopened packs by 1
     fetch('/give_pack', {
