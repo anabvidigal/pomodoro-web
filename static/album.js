@@ -1,7 +1,17 @@
-window.onload = function() {
-    var packModal = new bootstrap.Modal(document.getElementById('exampleModal'));
-    var openedPackContent = document.getElementById('openedPackContent');
+var packModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+var openedPackContent = document.getElementById('openedPackContent');
+var openPackButton = document.getElementById('openPackButton');
 
+openPackButton.addEventListener('click', () => {
+    // Subtract unopened packs by 1
+    showRandomCard();
+});
+
+document.getElementById('closeAndRedirect').addEventListener('click', () => {
+    packModal.hide();
+});
+
+function showRandomCard() {
     fetch('/get_random_card', {
         method: 'GET',
         headers: {
@@ -33,7 +43,3 @@ window.onload = function() {
 
     packModal.show();
 }
-
-document.getElementById('closeAndRedirect').addEventListener('click', () => {
-    window.location.href = '/album';
-});

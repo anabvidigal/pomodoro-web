@@ -57,6 +57,8 @@ def get_random_card():
     random_value = random.choice(values)
 
     new_card = db.execute("SELECT * FROM stickers WHERE StickerId = :random_value", random_value=random_value)
+    register_new_card(random_value)
+
     return jsonify(new_card)
 
 @app.route("/give_pack", methods=["POST"])
@@ -80,3 +82,7 @@ def get_unopened():
     get_unopened = db.execute("SELECT UnopenedPacks FROM USERS WHERE ID = :user_id", user_id="1")
     unopened = get_unopened[0]['UnopenedPacks']
     return unopened
+
+def register_new_card(stickerId):
+    db.execute("UPDATE USER_STICKERS SET Amount = Amount + 1 WHERE StickerID = :stickerId", stickerId=stickerId)
+    db.execute("UPDATE USERS SET UnopenedPacks = UnopenedPacks - 1 WHERE ID = :user_id", user_id="1")
