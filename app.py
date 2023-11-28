@@ -33,18 +33,16 @@ def album():
     if request.method == "POST":
         print("Post route is working correctly.")
 
-        # grantPack = db.execute("")
-
-        # Execute function to get a random card
-
-        # Add StickerID to the User Stickers table
+        unopened = get_unopened()
         CARDS = get_amounts()
-        return render_template("pack.html", CARDS=CARDS)
+
+        return render_template("album.html", CARDS=CARDS, unopened=unopened)
+    
     else:
-        
+        unopened = get_unopened()
         CARDS = get_amounts()
         
-        return render_template("album.html", CARDS=CARDS)
+        return render_template("album.html", CARDS=CARDS, unopened=unopened)
 
 @app.route("/pomodoro")
 def pomodoro():
@@ -61,12 +59,6 @@ def get_random_card():
     new_card = db.execute("SELECT * FROM stickers WHERE StickerId = :random_value", random_value=random_value)
     return jsonify(new_card)
 
-def get_amounts():
-    """Get the amount of each card from the database"""
-    amounts = db.execute("SELECT StickerId, Amount FROM USER_STICKERS WHERE UserId = :user_id", user_id="1")
-    CARDS = {str(item['StickerID']): item['Amount'] for item in amounts}
-    return CARDS
-
 @app.route("/give_pack", methods=["POST"])
 def give_pack():
     try:
@@ -76,3 +68,15 @@ def give_pack():
         traceback.print_exc()
         return jsonify({"error": str(e)}), 500
 
+
+# Functions
+def get_amounts():
+    """Get the amount of each card from the database"""
+    amounts = db.execute("SELECT StickerId, Amount FROM USER_STICKERS WHERE UserId = :user_id", user_id="1")
+    CARDS = {str(item['StickerID']): item['Amount'] for item in amounts}
+    return CARDS
+
+def get_unopened():
+    get_unopened = db.execute("SELECT UnopenedPacks FROM USERS WHERE ID = :user_id", user_id="1")
+    unopened = get_unopened[0]['UnopenedPacks']
+    return unopened

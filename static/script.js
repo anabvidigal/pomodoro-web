@@ -72,7 +72,7 @@ function showCard() {
                 <div class="card-body">
                 <h5 class="card-title">Claim your sticker!</h5>
                 <p class="card-text">You've just earned a sticker to your PomoAlbum.</p>
-                <button type="submit" id="claim" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm">Open pack</button>
+                <button type="submit" id="claim" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm">Go to Album</button>
             </div>
         </form>
         `;

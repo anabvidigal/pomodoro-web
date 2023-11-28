@@ -5,6 +5,16 @@
         <h3 id="countdown">Album</h1>
     </div>
     <br>
+
+    {% if unopened > 0 %}
+    <div class="card mx-auto w-50 reward">
+      <div class="card-body">
+      <h5 class="card-title">Get your sticker!</h5>
+      <p class="card-text">You have unopened sticker packs.</p>
+      <button type="submit" id="openPack" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm">Open pack</button>
+    </div>
+    {% endif %}
+
     <div class="container">
         <div class="row row-cols-md-3">
             {% for card, amount in CARDS.items() %}
@@ -30,6 +40,27 @@
             {% endfor %}
         </div>
     </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">New Sticker</h5>
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body" id="openedPackContent">
+              ...
+            </div>
+            <div class="modal-footer">
+              <form action="/album" method="get">
+                <button type="button" class="btn btn-secondary" id="closeAndRedirect">Close</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      
 {% endblock %}
 
 {% block scripts %}
