@@ -17,7 +17,7 @@
 
     <div class="container">
         <div class="row row-cols-md-3">
-            {% for card, amount in CARDS.items() %}
+            {% for card, amount in amounts.items() %}
             <div class="col">
                 {% if amount > 0 %}
                 <div class="card h-100">
@@ -49,9 +49,13 @@
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <div class="modal-body" id="openedPackContent">
-              ...
-            </div>
+                <div>
+                    <div class="modal-body" id="openedPackContent">
+                        ...
+                    </div>
+                    <!-- <canvas id="confettiContainer"></canvas> -->
+                </div>
+                
             <div class="modal-footer">
               <form action="/album" method="get">
                 <button type="button" class="btn btn-secondary" id="closeAndRedirect">Close</button>
@@ -65,5 +69,6 @@
 
 {% block scripts %}
     <script crossorigin="anonymous" src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
     <script src="static/album.js"></script>
 {% endblock %}

@@ -48,3 +48,6 @@ VALUES (1, 0);
 UPDATE USER_STICKERS
 SET Amount = 0
 WHERE UserID = 1 AND StickerID IN (1, 2, 3);
+
+UPDATE USERS
+SET UnopenedPacks = 0;

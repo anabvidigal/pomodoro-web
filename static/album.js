@@ -2,10 +2,15 @@ var packModal = new bootstrap.Modal(document.getElementById('exampleModal'));
 var openedPackContent = document.getElementById('openedPackContent');
 var openPackButton = document.getElementById('openPackButton');
 
-openPackButton.addEventListener('click', () => {
-    // Subtract unopened packs by 1
-    showRandomCard();
-});
+const canvas = document.getElementById('confettiContainer');
+const jsConfetti = new JSConfetti({ canvas }); 
+
+if (openPackButton) {
+    openPackButton.addEventListener('click', () => {
+        // Subtract unopened packs by 1
+        showRandomCard();
+    });
+}
 
 document.getElementById('closeAndRedirect').addEventListener('click', () => {
     window.location.href = '/album';
@@ -42,4 +47,8 @@ function showRandomCard() {
     });
 
     packModal.show();
+
+    jsConfetti.addConfetti({
+        emojis: ['🍅', '🥫'],
+     })
 }

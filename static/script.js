@@ -67,7 +67,7 @@ function updateCountdown() {
 function showCard() {
     var rewardEl = document.createElement("div");
         rewardEl.innerHTML = `
-        <form action="/album" method="post">
+        <form action="/album" method="get">
             <div class="card mx-auto w-50 reward">
                 <div class="card-body">
                 <h5 class="card-title">Claim your sticker!</h5>
