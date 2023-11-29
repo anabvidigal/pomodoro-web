@@ -17,14 +17,14 @@
 
     <div class="container">
         <div class="row row-cols-md-3">
-            {% for card, amount in amounts.items() %}
+            {% for sticker in stickers %}
             <div class="col">
-                {% if amount > 0 %}
+                {% if sticker['amount'] > 0 %}
                 <div class="card h-100">
-                    <img class="card-img-top img-fluid" src="{{ '/static/0' + card + '.gif' }}" alt="">
+                    <img class="card-img-top img-fluid" src="{{ '/static/0' + sticker['id']|string + '.gif' }}" alt="">
                     <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">A quirky description of the unlocked tomato.</p>
+                        <h5 class="card-title">{{ sticker['title']}}</h5>
+                        <p class="card-text">{{ sticker['description']}}</p>
                     </div>
                 </div>
                 

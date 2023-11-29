@@ -33,12 +33,14 @@ def album():
 
     unopened = get_unopened()
     amounts = get_amounts()
+    stickers = get_cards(amounts)
+    # [
+    #   {'id': 1, 'title': 'Cherry Tomato', 'description': 'You sure theyre not a fruit?'},
+    #   {'id': 2, 'title': 'Bloody Mary', 'description': 'This form of tomato is adult-only.'},
+    #   {'id': 3, 'title': 'Bruschetta', 'description': 'Tomato finger food.'}
+    # ]
 
-    # Create a function that gets the info of the card
-    # Pass amounts parameter
-    # Returns a list of dicts?
-
-    return render_template("album.html", amounts=amounts, unopened=unopened)
+    return render_template("album.html", amounts=amounts, unopened=unopened, stickers=stickers)
     
 
 @app.route("/pomodoro")
@@ -74,6 +76,30 @@ def get_amounts():
     get_amounts = db.execute("SELECT StickerId, Amount FROM USER_STICKERS WHERE UserId = :user_id", user_id="1")
     amounts = {str(item['StickerID']): item['Amount'] for item in get_amounts}
     return amounts
+
+def get_cards(amounts):
+
+    cards = []
+
+    print(f"Parameter passed into get_cards function: {amounts}")
+
+    for key, value in amounts.items():
+        print(f"Key: {key}")
+    
+        print(f"Value: {value}")
+        get_card = db.execute("SELECT * FROM STICKERS WHERE StickerId = :sticker_id", sticker_id=key)
+
+        for row in get_card:
+            id = row['StickerID']
+            amount = value
+            title = row['Title']
+            description = row['Description']
+            cards.append({'id': id, 'amount': amount, 'title': title, 'description': description})
+
+    print(cards)        
+    return cards
+        
+    
 
 def get_unopened():
     get_unopened = db.execute("SELECT UnopenedPacks FROM USERS WHERE ID = :user_id", user_id="1")
