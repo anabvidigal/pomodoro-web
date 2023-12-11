@@ -12,28 +12,37 @@
       <h5 class="card-title">Get your sticker!</h5>
       <p class="card-text">You have unopened sticker packs.</p>
       <button type="submit" id="openPackButton" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm">Open pack</button>
-    </div>
+      </div>
     {% endif %}
 
-    <div class="container">
+    <div class="container mt-5">
         <div class="row row-cols-md-3">
             {% for sticker in stickers %}
             <div class="col">
                 {% if sticker['amount'] > 0 %}
-                <div class="card h-100">
-                    <img class="card-img-top img-fluid" src="{{ '/static/0' + sticker['id']|string + '.gif' }}" alt="">
-                    <div class="card-body">
+                <div class="reward-card-container">
+                  <div class="card reward-card h-100" onclick="this.classList.toggle('flipped')">
+                    <div class="reward-card-front">
+                      <div class="image-container">
+                        <img class="card-img-top img-fluid" src="{{ '/static/' + sticker['id']|string + '.png' }}" alt="">
+                      </div>
+                    </div>
+                    <div class="reward-card-back">
+                      <div class="card-body">
                         <h5 class="card-title">{{ sticker['title']}}</h5>
                         <p class="card-text">{{ sticker['description']}}</p>
+                      </div>
                     </div>
+                  </div>
                 </div>
                 
                 {% else %}
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Unlock this card to know more about it.</p>
+                <div class="reward-card-container">
+                  <div class="card reward-card reward-card-locked">
+                    <div class="image-container">
+                      <img class="card-img-top img-fluid" src="{{ '/static/hidden-' + sticker['id']|string + '.png' }}" alt="">
                     </div>
+                  </div>
                 </div>
                 {% endif %} 
             </div>

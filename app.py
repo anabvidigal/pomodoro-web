@@ -1,5 +1,4 @@
-from flask import Flask, redirect, render_template, request, session, jsonify
-from flask_session import Session
+from flask import Flask, redirect, render_template, jsonify
 from cs50 import SQL
 import traceback
 import random
@@ -15,13 +14,10 @@ db = SQL("sqlite:///cards.db")
 # Prevent caching
 @app.after_request
 def after_request(response):
-    """Ensure responses aren't cached"""
     response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
     response.headers["Expires"] = 0
     response.headers["Pragma"] = "no-cache"
     return response
-
-hasUnopenedPack = False
 
 @app.route("/", methods=["GET", "POST"])
 def index():
