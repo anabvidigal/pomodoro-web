@@ -117,12 +117,13 @@ footer {
 
 .card-title {
     color: #CB444B;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 16pt;
+    padding-bottom: 8px;
 }
 
 .card-text {
     color: #CB444B;
     font-weight: 400;
-    font-size: 12pt;
+    font-size: 11pt;
 }
