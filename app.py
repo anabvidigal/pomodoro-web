@@ -73,6 +73,7 @@ def get_amounts():
     amounts = {str(item['StickerID']): item['Amount'] for item in get_amounts}
     return amounts
 
+
 def get_cards(amounts):
 
     cards = []
